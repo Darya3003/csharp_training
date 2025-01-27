@@ -90,7 +90,7 @@ namespace WebAddressbookTests
             driver.FindElement(By.LinkText("groups")).Click();
         }
 
-       
+
         private void Login(AccountData accountData)
         {
             driver.FindElement(By.Name("user")).Click();
