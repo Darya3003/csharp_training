@@ -38,7 +38,7 @@ namespace WebAddressbookTests
         }
 
         [Test]
-        public void GroupCreationTest()
+        public void ContactCreationTest()
         {
             driver.Navigate().GoToUrl(baseURL);
             Login(new AccountData("admin", "secret"));
