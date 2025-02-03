@@ -92,15 +92,18 @@
     <Compile Include="FigureTests\Circle.cs" />
     <Compile Include="ContactCreationTests\ContactData.cs" />
     <Compile Include="FigureTests\Figure.cs" />
-    <Compile Include="GroupCreationTests\GroupData.cs" />
+    <Compile Include="GroupTests\GroupData.cs" />
     <Compile Include="FigureTests\Square.cs" />
     <Compile Include="FigureTests\UnitTest1.cs" />
+    <Compile Include="GroupTests\GroupRemovalTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="GroupCreationTests\GroupCreationTests.cs" />
+    <Compile Include="GroupTests\GroupCreationTests.cs" />
     <Compile Include="ContactCreationTests\ContactCreationTest.cs" />
+    <Compile Include="GroupTests\TestBase.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="GroupTests\GroupClassDiagram.cd" />
     <None Include="FigureTests\FigureDiagram.cd" />
     <None Include="packages.config" />
   </ItemGroup>
