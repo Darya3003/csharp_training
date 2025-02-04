@@ -8,14 +8,14 @@ namespace WebAddressbookTests
         [Test]
         public void ContactCreationTest()
         {
-            driver.Navigate().GoToUrl(baseURL);
-            loginHelper.Login(new AccountData("admin", "secret"));
-            contactHelper.GoToAddNewContactPage();
+            app.Navigator.GoToHomePage();
+            app.Auth.Login(new AccountData("admin", "secret"));
+            app.Contact.GoToAddNewContactPage();
             ContactData contactData = new ContactData("test");
             contactData.LastName = "test";
-            contactHelper.FillContactForm(contactData);
-            navigator.ReturnToHomePage();
-            logoutHelper.Logout();
+            app.Contact.FillContactForm(contactData);
+            app.Navigator.ReturnToHomePage();
+            app.Logout.Logout();
         }  
     }
 }
