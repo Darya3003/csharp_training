@@ -1,17 +1,10 @@
 ﻿using OpenQA.Selenium;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace WebAddressbookTests
 {
-    public class LoginHelper
+    public class LoginHelper : HelperBase
     {
-        private IWebDriver driver;
-        public LoginHelper(IWebDriver driver) { 
-            this.driver = driver; }
+        public LoginHelper(IWebDriver driver) : base(driver) {}
 
         public void Login(AccountData accountData)
         {
@@ -22,6 +15,5 @@ namespace WebAddressbookTests
             driver.FindElement(By.Name("pass")).SendKeys(accountData.Password);
             driver.FindElement(By.XPath("//input[@value='Login']")).Click();
         }
-
     }
 }
