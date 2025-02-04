@@ -9,7 +9,7 @@ namespace WebAddressbookTests
         public void GroupCreationTest()
         {
             GoToHomePage();
-            Login(new AccountData("admin", "secret"));
+            loginHelper.Login(new AccountData("admin", "secret"));
             GoToGroupsPage();
             InitGroupCreation();
             GroupData group = new GroupData("aaa")
