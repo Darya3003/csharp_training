@@ -6,10 +6,11 @@ namespace WebAddressbookTests
     {
         private string baseUrl;
 
-        public NavigationHelper(IWebDriver driver, string baseUrl) : base(driver)
+        public NavigationHelper(ApplicationManager manager, string baseUrl) : base(manager)
         {
             this.baseUrl = baseUrl;
         }
+
 
         public void GoToHomePage()
         {
