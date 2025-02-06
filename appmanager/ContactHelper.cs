@@ -1,4 +1,5 @@
 ﻿using OpenQA.Selenium;
+using System;
 
 namespace WebAddressbookTests
 {
@@ -12,6 +13,14 @@ namespace WebAddressbookTests
             FillContactForm(contactData);
             manager.Navigator.ReturnToHomePage();
             return this;
+        }
+
+        public ContactHelper Remove()
+        {
+           SelectContact();
+           RemoveContact();
+           CloseDialogWindow();
+           return this;
         }
 
         public ContactHelper FillContactForm(ContactData contactData)
@@ -69,6 +78,24 @@ namespace WebAddressbookTests
         public ContactHelper GoToAddNewContactPage()
         {
             driver.FindElement(By.LinkText("add new")).Click();
+            return this;
+        }
+
+        public ContactHelper SelectContact()
+        {
+            driver.FindElement(By.Name("selected[]")).Click();
+            return this;
+        }
+
+        public ContactHelper RemoveContact()
+        {
+            driver.FindElement(By.XPath("//input[@value='Delete']")).Click();
+            return this;
+        }
+
+        public ContactHelper CloseDialogWindow()
+        {
+            driver.SwitchTo().Alert().Accept();
             return this;
         }
     }
