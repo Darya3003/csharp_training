@@ -16,9 +16,6 @@
         private string email = "";
         private string email2 = "";
         private string email3 = "";
-        //private string bday = "";
-        //private string aday = "";
-
 
         public ContactData(string firstname)
         {
@@ -108,17 +105,5 @@
             get { return email3; }
             set { email3 = value; }
         }
-
-        //public string Bday
-        //{
-        //    get { return bday; }
-        //    set { bday = value; }
-        //}
-
-        //public string Aday
-        //{
-        //    get { return aday; }
-        //    set { aday = value; }
-        //}
     }
 }
