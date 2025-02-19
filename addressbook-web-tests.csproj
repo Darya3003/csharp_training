@@ -90,6 +90,7 @@
   <ItemGroup>
     <Compile Include="model\AccountData.cs" />
     <Compile Include="appmanager\ApplicationManager.cs" />
+    <Compile Include="tests\AuthTestBase.cs" />
     <Compile Include="tests\ContactCreationTests.cs" />
     <Compile Include="model\ContactData.cs" />
     <Compile Include="model\GroupData.cs" />
@@ -104,8 +105,8 @@
     <Compile Include="appmanager\NavigationHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="tests\GroupCreationTests.cs" />
+    <Compile Include="tests\LoginTests.cs" />
     <Compile Include="tests\TestBase.cs" />
-    <Compile Include="tests\TestSuiteFixture.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
