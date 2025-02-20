@@ -1,4 +1,5 @@
 ﻿using OpenQA.Selenium;
+using System;
 using System.Net;
 
 namespace WebAddressbookTests
@@ -23,10 +24,10 @@ namespace WebAddressbookTests
             return this;
         }
 
-        public GroupHelper Modify(int v, GroupData newData)
+        public GroupHelper Modify(int index, GroupData newData)
         {
             manager.Navigator.GoToGroupsPage();
-            SelectGroup(v);
+            SelectGroup(index);
             InitGroupModification();
             FillGroupForm(newData);
             SubmitGroupModification();
@@ -37,7 +38,6 @@ namespace WebAddressbookTests
         public GroupHelper Remove(int index)
         {
             manager.Navigator.GoToGroupsPage();
-
             SelectGroup(index);
             RemoveGroup();
             ReturnToGroupsPage();
@@ -50,9 +50,7 @@ namespace WebAddressbookTests
             Type(By.Name("group_header"), group.Header);
             Type(By.Name("group_footer"), group.Footer);          
             return this;
-        }
-
-        
+        }      
 
         public GroupHelper SubmitGroupCreation()
         {
@@ -68,8 +66,19 @@ namespace WebAddressbookTests
 
         public GroupHelper SelectGroup(int index)
         {
+            if (!IsAnyGroupExist())
+            {
+                Create(new GroupData("qqq"));
+            }
             driver.FindElement(By.XPath("//div[@id='content']/form/span[" + index + "]/input")).Click();
+
             return this;
+        }
+
+
+        public bool IsAnyGroupExist()
+        {
+            return IsElementPresent(By.Name("selected[]"));
         }
 
         public GroupHelper RemoveGroup()

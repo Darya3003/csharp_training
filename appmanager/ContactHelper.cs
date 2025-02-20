@@ -62,8 +62,17 @@ namespace WebAddressbookTests
 
         public ContactHelper SelectContact()
         {
+            if (!IsAnyContactExist())
+            {
+                Create(new ContactData("qqq"));
+            }
             driver.FindElement(By.Name("selected[]")).Click();
             return this;
+        }
+
+        public bool IsAnyContactExist()
+        {
+            return IsElementPresent(By.Name("selected[]"));
         }
 
         public ContactHelper RemoveContact()
