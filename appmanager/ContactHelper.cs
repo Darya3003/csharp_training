@@ -1,5 +1,6 @@
 ﻿using OpenQA.Selenium;
 using System;
+using System.Collections.Generic;
 
 namespace WebAddressbookTests
 {
@@ -91,6 +92,19 @@ namespace WebAddressbookTests
         {
             driver.FindElement(By.Name("update")).Click();
             return this;
+        }
+
+        public List<ContactData> GetContactList()
+        {
+            List<ContactData> contacts = new List<ContactData>();
+
+            ICollection<IWebElement> elements = driver.FindElements(By.Name("selected[]"));
+
+            foreach (IWebElement element in elements)
+            {
+                contacts.Add(new ContactData(element.Text));
+            }
+            return contacts;
         }
     }
 }

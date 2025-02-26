@@ -71,7 +71,7 @@ namespace WebAddressbookTests
             {
                 Create(new GroupData("qqq"));
             }
-            driver.FindElement(By.XPath("//div[@id='content']/form/span[" + index + "]/input")).Click();
+            driver.FindElement(By.XPath("//div[@id='content']/form/span[" + (index+1) + "]/input")).Click();
 
             return this;
         }
