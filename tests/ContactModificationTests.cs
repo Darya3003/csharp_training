@@ -9,9 +9,11 @@ namespace WebAddressbookTests
         [Test]
         public void ContactModificationTest()
         {
-            ContactData newContactData = new ContactData("test1");
-            newContactData.LastName = "test1";
-            newContactData.MiddleName = "test1";
+            ContactData newContactData = new ContactData("test1")
+            {
+                LastName = "test1",
+                MiddleName = "test1"
+            };
 
             if (!app.Contact.IsAnyContactExist())
             {

@@ -106,12 +106,16 @@ namespace WebAddressbookTests
             {
                 contactCache = new List<ContactData>();
 
-                IWebElement row2 = driver.FindElement(By.XPath("//table[@id='maintable']/tbody/tr[2]/td"));
-                IList<IWebElement> cells = row2.FindElements(By.TagName("td"));
+                IList<IWebElement> rows = driver.FindElements(By.Name("entry"));
+                
 
-                foreach (IWebElement cell in cells)
+                foreach (IWebElement row in rows)
                 {
-                    contactCache.Add(new ContactData(cell.Text));
+                    var contact = new ContactData("");
+                    IList<IWebElement> cells = row.FindElements(By.TagName("td")); ;
+                    contact.FirstName = cells[2].Text;
+                    contact.LastName = cells[1].Text;
+                    contactCache.Add(contact);
                 }
             }
                 return new List <ContactData>(contactCache);
@@ -119,7 +123,7 @@ namespace WebAddressbookTests
 
         public int GetContactCount()
         {
-            throw new NotImplementedException();
+            return driver.FindElements(By.Name("entry")).Count;
         }
     }
 }

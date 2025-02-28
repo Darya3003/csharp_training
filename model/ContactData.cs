@@ -120,7 +120,7 @@ namespace WebAddressbookTests
 
         public bool Equals(ContactData other)
         {
-            if (ReferenceEquals(other, null)) return false;
+            if (other is null) return false;
             if (ReferenceEquals(this, other)) return true;
             return FirstLastName == other.FirstLastName;
         }
@@ -129,7 +129,7 @@ namespace WebAddressbookTests
 
         public int CompareTo(ContactData other)
         {
-            if (ReferenceEquals(other, null)) return 1;
+            if (other is null) return 1;
             return FirstLastName.CompareTo(other.FirstLastName);
         }
     }
