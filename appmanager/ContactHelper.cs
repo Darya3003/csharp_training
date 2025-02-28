@@ -28,6 +28,7 @@ namespace WebAddressbookTests
         {
             SelectContact(index);
             RemoveContact();
+            manager.Navigator.ReturnToHomePage();
             return this;
         }
 
@@ -62,22 +63,13 @@ namespace WebAddressbookTests
 
         public ContactHelper SelectContact(int index)
         {
-            if (!IsAnyContactExist()) { CreateIfNotExist();}
-            driver.FindElement(By.Name("selected[]")).Click();
+            driver.FindElement(By.XPath("//table[@id='maintable']/tbody/tr[2]/td["+(index)+"]")).Click();
+            contactCache = null;
+
             return this;
         }
 
-        public ContactData CreateIfNotExist()
-        {
-            ContactData contact = new ContactData("qqq");
-            if(!IsAnyContactExist())
-            {
-                Create(contact);
-            }
-            return contact;
-        }
-
-
+        
         public bool IsAnyContactExist()
         {
             return IsElementPresent(By.Name("selected[]"));
@@ -86,6 +78,8 @@ namespace WebAddressbookTests
         public ContactHelper RemoveContact()
         {
             driver.FindElement(By.XPath("//input[@value='Delete']")).Click();
+            contactCache = null;
+
             return this;
         }
 
@@ -98,20 +92,28 @@ namespace WebAddressbookTests
         public ContactHelper SubmitContactModification()
         {
             driver.FindElement(By.Name("update")).Click();
+            contactCache = null;
+
             return this;
         }
 
+        private List<ContactData> contactCache = null;
+
         public List<ContactData> GetContactList()
         {
-            List<ContactData> contacts = new List<ContactData>();
-
-            ICollection<IWebElement> elements = driver.FindElements(By.Name("selected[]"));
-
-            foreach (IWebElement element in elements)
+            if (contactCache == null)
             {
-                contacts.Add(new ContactData(element.Text));
+                contactCache = new List<ContactData>();
+
+                IWebElement row2 = driver.FindElement(By.XPath("//table[@id='maintable']/tbody/tr[2]/td"));
+                IList<IWebElement> cells = row2.FindElements(By.TagName("td"));
+
+                foreach (IWebElement cell in cells)
+                {
+                    contactCache.Add(new ContactData(cell.Text));
+                }
             }
-            return contacts;
+                return new List <ContactData>(contactCache);
         }
     }
 }

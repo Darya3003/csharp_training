@@ -13,6 +13,11 @@ namespace WebAddressbookTests
             newContactData.LastName = "test1";
             newContactData.MiddleName = "test1";
 
+            if (!app.Contact.IsAnyContactExist())
+            {
+                app.Contact.Create(new ContactData("new contact"));
+            }
+
             List<ContactData> oldContacts = app.Contact.GetContactList();
 
             app.Contact.Modify(0, newContactData);
@@ -22,7 +27,7 @@ namespace WebAddressbookTests
             oldContacts.Sort();
             newContacts.Sort();
 
-            Assert.AreEqual(oldContacts.Count, newContacts);
+            Assert.AreEqual(oldContacts, newContacts);
         }
     }
 }

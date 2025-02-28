@@ -15,7 +15,12 @@ namespace WebAddressbookTests
                 Footer = null
             };
 
-            List<GroupData> oldGroups = app.Groups.GetGroupList();
+            if (!app.Groups.IsAnyGroupExist())
+            {
+                app.Groups.Create(new GroupData("ggg"));
+            }
+
+            List<GroupData> oldGroups = app.Groups.GetGroupList();                   
 
             app.Groups.Modify(0, newData);
 
