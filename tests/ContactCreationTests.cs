@@ -9,8 +9,10 @@ namespace WebAddressbookTests
         [Test]
         public void ContactCreationTest()
         {
-            ContactData contactData = new ContactData("qqq");
-            contactData.LastName = "www";
+            ContactData contactData = new ContactData("qqq")
+            {
+                LastName = "www"
+            };
 
             if (!app.Contact.IsAnyContactExist())
             {
@@ -20,8 +22,9 @@ namespace WebAddressbookTests
             List<ContactData> oldContacts = app.Contact.GetContactList();
 
             app.Contact.Create(contactData);
-            List<ContactData> newContacts = app.Contact.GetContactList();
+            Assert.AreEqual(oldContacts.Count + 1, app.Contact.GetContactCount());
 
+            List<ContactData> newContacts = app.Contact.GetContactList();
             oldContacts.Add(contactData);
             oldContacts.Sort();
             newContacts.Sort();
@@ -32,12 +35,16 @@ namespace WebAddressbookTests
         [Test]
         public void EmptyContactCreationTest()
         {
-            ContactData contactData = new ContactData("");
-            contactData.LastName = "";
+            ContactData contactData = new ContactData("")
+            {
+                LastName = ""
+            };
 
             List<ContactData> oldContacts = app.Contact.GetContactList();
 
             app.Contact.Create(contactData);
+            Assert.AreEqual(oldContacts.Count + 1, app.Contact.GetContactCount());
+
 
             List<ContactData> newContacts = app.Contact.GetContactList();
             oldContacts.Add(contactData);

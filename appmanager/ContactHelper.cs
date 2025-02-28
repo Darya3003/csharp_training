@@ -1,4 +1,5 @@
 ﻿using OpenQA.Selenium;
+using System;
 using System.Collections.Generic;
 
 namespace WebAddressbookTests
@@ -114,6 +115,11 @@ namespace WebAddressbookTests
                 }
             }
                 return new List <ContactData>(contactCache);
+        }
+
+        public int GetContactCount()
+        {
+            throw new NotImplementedException();
         }
     }
 }
