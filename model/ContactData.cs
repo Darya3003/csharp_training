@@ -1,6 +1,8 @@
-﻿namespace WebAddressbookTests
+﻿using System;
+
+namespace WebAddressbookTests
 {
-    public class ContactData
+    public class ContactData : IEquatable <ContactData>
     {
         private string firstname;
         private string middlename = "";
@@ -105,5 +107,15 @@
             get { return email3; }
             set { email3 = value; }
         }
+
+        public bool Equals(ContactData other)
+        {
+            if (ReferenceEquals(other, null)) return false;
+            if (ReferenceEquals(this, other)) return true;
+            return FirstName == other.FirstName && LastName == other.LastName;
+        }
+
+        public int GetHashCode(ContactData other)
+        { return other.GetHashCode(); }
     }
 }

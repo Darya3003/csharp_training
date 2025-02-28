@@ -1,5 +1,4 @@
 ﻿using OpenQA.Selenium;
-using System;
 using System.Collections.Generic;
 
 namespace WebAddressbookTests
@@ -15,9 +14,9 @@ namespace WebAddressbookTests
             manager.Navigator.ReturnToHomePage();
             return this;
         }
-        public ContactHelper Modify(int v, ContactData newContactData)
+        public ContactHelper Modify(int index, ContactData newContactData)
         {
-            SelectContact();
+            SelectContact(index);
             InitContactModification();
             FillContactForm(newContactData);
             SubmitContactModification();
@@ -25,9 +24,9 @@ namespace WebAddressbookTests
             return this;
         }
 
-        public ContactHelper Remove()
+        public ContactHelper Remove(int index)
         {
-            SelectContact();
+            SelectContact(index);
             RemoveContact();
             return this;
         }
@@ -61,15 +60,23 @@ namespace WebAddressbookTests
             return this;
         }
 
-        public ContactHelper SelectContact()
+        public ContactHelper SelectContact(int index)
         {
-            if (!IsAnyContactExist())
-            {
-                Create(new ContactData("qqq"));
-            }
+            if (!IsAnyContactExist()) { CreateIfNotExist();}
             driver.FindElement(By.Name("selected[]")).Click();
             return this;
         }
+
+        public ContactData CreateIfNotExist()
+        {
+            ContactData contact = new ContactData("qqq");
+            if(!IsAnyContactExist())
+            {
+                Create(contact);
+            }
+            return contact;
+        }
+
 
         public bool IsAnyContactExist()
         {

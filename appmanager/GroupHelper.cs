@@ -76,6 +76,15 @@ namespace WebAddressbookTests
             return this;
         }
 
+        public GroupData CreateIfNotExist()
+        {
+            GroupData group = new GroupData("qqq");
+            if (!IsAnyGroupExist())
+            {
+                Create(group);
+            }
+            return group;
+        }
 
         public bool IsAnyGroupExist()
         {
