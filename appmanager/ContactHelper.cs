@@ -88,6 +88,7 @@ namespace WebAddressbookTests
         public ContactHelper InitContactModification()
         {
             driver.FindElement(By.XPath("//img[@alt='Edit']")).Click();
+            contactCache = null;
             return this;
         }
 
@@ -116,6 +117,7 @@ namespace WebAddressbookTests
                     contact.FirstName = cells[2].Text;
                     contact.LastName = cells[1].Text;
                     contact.FirstLastName = cells[2].Text+cells[1].Text;
+                    contact.Id = cells[0].FindElement(By.TagName("input")).GetAttribute("id");
                     contactCache.Add(contact);
                 }
             }
