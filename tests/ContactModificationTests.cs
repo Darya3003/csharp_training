@@ -12,7 +12,6 @@ namespace WebAddressbookTests
             ContactData newContactData = new ContactData("test1")
             {
                 LastName = "test1",
-                MiddleName = "test1"
             };
 
             if (!app.Contact.IsAnyContactExist())

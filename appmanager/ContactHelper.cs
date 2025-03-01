@@ -59,12 +59,13 @@ namespace WebAddressbookTests
         public ContactHelper GoToAddNewContactPage()
         {
             driver.FindElement(By.LinkText("add new")).Click();
+            contactCache = null;
             return this;
         }
 
         public ContactHelper SelectContact(int index)
         {
-            driver.FindElement(By.XPath("//table[@id='maintable']/tbody/tr[2]/td["+(index)+"]")).Click();
+            driver.FindElement(By.XPath("//table[@id='maintable']/tbody/tr[2]/td["+(index+1)+"]")).Click();
             contactCache = null;
 
             return this;
@@ -106,8 +107,7 @@ namespace WebAddressbookTests
             {
                 contactCache = new List<ContactData>();
 
-                IList<IWebElement> rows = driver.FindElements(By.Name("entry"));
-                
+                IList<IWebElement> rows = driver.FindElements(By.Name("entry"));            
 
                 foreach (IWebElement row in rows)
                 {
@@ -115,6 +115,7 @@ namespace WebAddressbookTests
                     IList<IWebElement> cells = row.FindElements(By.TagName("td")); ;
                     contact.FirstName = cells[2].Text;
                     contact.LastName = cells[1].Text;
+                    contact.FirstLastName = cells[2].Text+cells[1].Text;
                     contactCache.Add(contact);
                 }
             }
