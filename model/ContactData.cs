@@ -6,6 +6,7 @@ namespace WebAddressbookTests
     {
         private string firstname;        
         private string lastname = "";
+        private string allPhones;
 
         public ContactData(string firstname)
         {
@@ -16,9 +17,9 @@ namespace WebAddressbookTests
             Title = "";
             Company = "";
             Address = "";
-            Home = "";
-            Mobile = "";
-            Work = "";
+            HomePhone = "";
+            MobilePhone = "";
+            WorkPhone = "";
             Fax = "";
             Email = "";
             Email2 = "";
@@ -41,11 +42,11 @@ namespace WebAddressbookTests
 
         public string Address { get; set; }
 
-        public string Home { get; set; }
+        public string HomePhone { get; set; }
 
-        public string Mobile { get; set; }
+        public string MobilePhone { get; set; }
 
-        public string Work { get; set; }       
+        public string WorkPhone { get; set; }       
 
         public string Fax { get; set; }
 
@@ -63,6 +64,31 @@ namespace WebAddressbookTests
                 string firstLastName = firstname + lastname;
                 firstLastName = value; 
             }
+        }
+
+        public string AllPhones
+        {
+            get
+            {
+                if (allPhones != null)
+                    return allPhones;
+                else
+                    return (CLeanUp(HomePhone) + CLeanUp(MobilePhone) + CLeanUp(WorkPhone)).Trim();
+            }
+
+            set
+            {
+                allPhones = value;
+              }
+        }
+
+        private string CLeanUp(string phone)
+        {
+            if (phone == null || phone == "")
+                return "";
+            else 
+                return phone.Replace(" ", "").Replace("-", "").Replace("(", "").Replace(")", "") + "\r\n";
+
         }
 
         public bool Equals(ContactData other)
