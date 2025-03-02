@@ -13,7 +13,7 @@ namespace WebAddressbookTests
             GroupData group = new GroupData("aaa")
             {
                 Header = "bbb",
-                Footer = "ddd"
+                Footer = "ccc"
             };
 
             List<GroupData> oldGroups = app.Groups.GetGroupList();

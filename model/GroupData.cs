@@ -9,9 +9,7 @@ namespace WebAddressbookTests
             Name = name;
             Header = "";
             Footer = "";
-        }
-
-        public string Id { get; set; }
+        }    
 
         public string Name { get; set; }
         
@@ -19,11 +17,14 @@ namespace WebAddressbookTests
       
         public string Footer {  get; set; }
 
+        public string Id { get; set; }
+
         public bool Equals(GroupData other)
         {
             if(other is null) return false;
             if(ReferenceEquals(this, other)) return true;
-            return Name==other.Name;
+
+            return Name.Equals(other.Name, StringComparison.Ordinal);
         }
 
         public override int GetHashCode() => Name.GetHashCode();
