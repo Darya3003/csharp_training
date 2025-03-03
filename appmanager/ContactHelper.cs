@@ -185,5 +185,22 @@ namespace WebAddressbookTests
 
             return Int32.Parse(m.Value);
         }
+
+        public ContactData GetContactDetailInformation(int v)
+        {
+            manager.Navigator.GoToHomePage();
+            GoToContactDetailPage(0);
+
+            //// ....
+            
+            return new ContactData("");
+        }
+
+        public void GoToContactDetailPage(int index)
+        {
+            driver.FindElements(By.Name("entry"))[index]
+              .FindElements(By.TagName("td"))[6]
+              .FindElement(By.TagName("a")).Click();
+        }
     }
 }
