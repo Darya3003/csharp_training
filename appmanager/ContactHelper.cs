@@ -191,8 +191,12 @@ namespace WebAddressbookTests
             manager.Navigator.GoToHomePage();
             GoToContactDetailPage(0);
 
-            //// ....
+            string detailInformation = driver.FindElement(By.Id("content")).Text;
+            string firstName = detailInformation.Split(' ')[0];
             
+            //string lastName = detailInformation.Split(' ')[1].Split('\\')[0];
+            //string firstName = new Regex(@"\+").Match(detailInformation).Value;
+
             return new ContactData("");
         }
 

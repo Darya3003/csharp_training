@@ -29,7 +29,7 @@ namespace WebAddressbookTests
 
         public override int GetHashCode() => Name.GetHashCode();
 
-        public override string ToString() => "name = " + Name;
+        public override string ToString() => "name = "  + Name + "\nheader = " + Header + "\nfooter = " + Footer;
 
         public int CompareTo(GroupData other)
         {
