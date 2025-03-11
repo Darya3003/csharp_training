@@ -2,8 +2,8 @@
 using NUnit.Framework;
 using System.Collections.Generic;
 using System.IO;
-using System.Text.Json.Serialization;
 using System.Xml.Serialization;
+using Excel = Microsoft.Office.Interop.Excel;
 
 namespace WebAddressbookTests
 {
@@ -50,11 +50,34 @@ namespace WebAddressbookTests
 
         public static IEnumerable<GroupData> GroupDataFromJsonFile()
         {
+            List<GroupData> groups = new List<GroupData>();
+            Excel.Application app = new Excel.Application();
+            Excel.Workbook wb= app.Workbooks.Open(Path.Combine(Directory.GetCurrentDirectory(), @"groups.xlsx"));
+            Excel.Worksheet sheet = wb.ActiveSheet;
+            Excel.Range range = sheet.UsedRange;
+            for (int i=1; i<= range.Rows.Count; i++)
+            {
+                groups.Add(new GroupData()
+                {
+                    Name = range.Cells[i, 1].Value,
+                    Header = range.Cells[i, 2].Value,
+                    Footer = range.Cells[i, 3].Value
+                });
+            }
+            wb.Close();
+            app.Visible = false;
+            app.Quit();
+
+            return groups;
+        }
+
+        public static IEnumerable<GroupData> GroupDataFromExcelFile()
+        {
             return JsonConvert.DeserializeObject<List<GroupData>>
                    (File.ReadAllText(@"groups.json"));
         }
 
-        [Test, TestCaseSource("GroupDataFromJsonFile")]
+        [Test, TestCaseSource("GroupDataFromExcelFile")]
         public void GroupCreationTest(GroupData group)
         {      
             List<GroupData> oldGroups = app.Groups.GetGroupList();
