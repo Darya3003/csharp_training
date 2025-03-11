@@ -1,4 +1,5 @@
-﻿using System.Xml.Serialization;
+﻿using Newtonsoft.Json;
+using System.Xml.Serialization;
 using WebAddressbookTests;
 
 internal class Program
@@ -26,6 +27,10 @@ internal class Program
         {
             WriteGroupsToXmlFile(groups, writer);
         }
+        else if (format == "json")
+        {
+            WriteGroupsToJsonFile(groups, writer);
+        }
         else
         {
             Console.WriteLine("Unrecognzed format" + format);
@@ -46,6 +51,11 @@ internal class Program
         {
             new XmlSerializer(typeof(List<GroupData>)).Serialize(writer, groups);
            ;
+        }
+
+        static void WriteGroupsToJsonFile(List<GroupData> groups, StreamWriter writer)
+        {
+            writer.Write(JsonConvert.SerializeObject(groups, Formatting.Indented));
         }
     }
 }
