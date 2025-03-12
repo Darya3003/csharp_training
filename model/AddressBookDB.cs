@@ -1,7 +1,12 @@
-﻿using LinqToDB.Data;
+﻿using LinqToDB;
 namespace WebAddressbookTests
 {
-    public class AddressBookDB : DataConnection
+    public class AddressBookDB : LinqToDB.Data.DataConnection
     {
+        public AddressBookDB() : base("AddressBook") { }
+
+        public ITable<GroupData> Groups => this.GetTable<GroupData>();
+
+        public ITable<ContactData> Contacts => this.GetTable<ContactData>();
     }
 }

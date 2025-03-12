@@ -1,9 +1,11 @@
 ﻿using Newtonsoft.Json;
 using NUnit.Framework;
 using System.Collections.Generic;
+using System.Linq;
 using System.IO;
 using System.Xml.Serialization;
 using Excel = Microsoft.Office.Interop.Excel;
+using System;
 
 namespace WebAddressbookTests
 {
@@ -112,6 +114,20 @@ namespace WebAddressbookTests
             oldGroups.Sort();
             newGroups.Sort();
             Assert.AreNotEqual(oldGroups, newGroups);
+        }
+
+        [Test]
+        public void TestCBConnectivity()
+        {
+            DateTime start = DateTime.Now;
+            List<GroupData> fromUI = app.Groups.GetGroupList();
+            DateTime end = DateTime.Now;
+            Console.WriteLine("time fromUI " + end.Subtract(start));
+
+            start = DateTime.Now;
+            List<GroupData> fromDB = GroupData.GetAll();
+            end = DateTime.Now;
+            Console.WriteLine("time fromDB "+end.Subtract(start));
         }
     }
 }

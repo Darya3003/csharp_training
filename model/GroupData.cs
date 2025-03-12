@@ -1,8 +1,12 @@
-﻿using System;
+﻿using LinqToDB.Mapping;
+using System;
+using System.Linq;
+using System.Collections.Generic;
 
 namespace WebAddressbookTests
 {
-    public class GroupData : IEquatable <GroupData>, IComparable<GroupData>
+    [Table(Name = "group_list")]
+    public class GroupData : IEquatable<GroupData>, IComparable<GroupData>
     {
         public GroupData() { }
 
@@ -11,32 +15,44 @@ namespace WebAddressbookTests
             Name = name;
             Header = "";
             Footer = "";
-        }    
+        }
 
+        [Column(Name = "group_name"), NotNull]
         public string Name { get; set; }
-        
-        public string Header { get; set; }
-      
-        public string Footer {  get; set; }
 
+        [Column(Name = "group_header"), NotNull]
+        public string Header { get; set; }
+
+        [Column(Name = "group_footer"), NotNull]
+        public string Footer { get; set; }
+
+        [Column(Name = "group_id"), PrimaryKey, Identity]
         public string Id { get; set; }
 
         public bool Equals(GroupData other)
         {
-            if(other is null) return false;
-            if(ReferenceEquals(this, other)) return true;
+            if (other is null) return false;
+            if (ReferenceEquals(this, other)) return true;
 
             return Name.Equals(other.Name, StringComparison.Ordinal);
         }
 
         public override int GetHashCode() => Name.GetHashCode();
 
-        public override string ToString() => "name = "  + Name + "\nheader = " + Header + "\nfooter = " + Footer;
+        public override string ToString() => "name = " + Name + "\nheader = " + Header + "\nfooter = " + Footer;
 
         public int CompareTo(GroupData other)
         {
             if (other is null) return 1;
             return Name.CompareTo(other.Name);
+        }
+
+        public static List<GroupData> GetAll()
+        {
+            using (AddressBookDB db = new AddressBookDB())
+            {
+                return (from g in db.Groups select g).ToList();
+            }
         }
     }
 }
