@@ -70,14 +70,9 @@ namespace WebAddressbookTests
             return contacts;
         }
 
-        [Test, TestCaseSource("ContactDataFromJsonFile")]
-        public void ContactCreationTest()
+        [Test, TestCaseSource("ContactDataFromXmlFile")]
+        public void ContactCreationTest(ContactData contact)
         {
-            ContactData contactData = new ContactData("www")
-            {
-                LastName = "qqq"
-            };
-
             if (!app.Contact.IsAnyContactExist())
             {
                 app.Contact.Create(new ContactData("new contact"));
@@ -85,11 +80,11 @@ namespace WebAddressbookTests
 
             List<ContactData> oldContacts = app.Contact.GetContactList();
 
-            app.Contact.Create(contactData);
+            app.Contact.Create(contact);
             Assert.AreEqual(oldContacts.Count + 1, app.Contact.GetContactCount());
 
             List<ContactData> newContacts = app.Contact.GetContactList();
-            oldContacts.Add(contactData);
+            oldContacts.Add(contact);
             oldContacts.Sort();
             newContacts.Sort();
             Assert.AreEqual(oldContacts, newContacts);
