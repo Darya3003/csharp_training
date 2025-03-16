@@ -63,9 +63,7 @@ namespace WebAddressbookTests
             RemoveGroup();
             ReturnToGroupsPage();
             return this;
-        }
-
-        
+        }    
 
         public GroupHelper FillGroupForm(GroupData group)
         {

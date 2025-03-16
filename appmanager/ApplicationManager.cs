@@ -64,5 +64,7 @@ namespace WebAddressbookTests
         public NavigationHelper Navigator { get { return navigator; } }
         public GroupHelper Groups { get { return groupHelper; } }
         public ContactHelper Contact { get { return contactHelper; } }
+
+        public object Contacts { get; internal set; }
     }
 }

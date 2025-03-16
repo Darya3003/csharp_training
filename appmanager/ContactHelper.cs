@@ -30,7 +30,7 @@ namespace WebAddressbookTests
         public ContactHelper Modify(string oldId, ContactData newContactData)
         {
             SelectContact(oldId);
-            InitContactModification();
+            InitContactModification(oldId);
             FillContactForm(newContactData);
             SubmitContactModification();
             manager.Navigator.ReturnToHomePage();
@@ -118,6 +118,19 @@ namespace WebAddressbookTests
             contactCache = null;
             return this;
         }
+        public void InitContactModification(int index)
+        {
+            driver.FindElements(By.Name("entry"))[index]
+                .FindElements(By.TagName("td"))[7]
+                .FindElement(By.TagName("a")).Click();
+        }
+
+        public ContactHelper InitContactModification(string id)
+        {
+            driver.Navigate().GoToUrl("http://localhost/addressbook/edit.php?id="+id+"");
+            contactCache = null;
+            return this;
+        }
 
         public ContactHelper SubmitContactModification()
         {
@@ -176,7 +189,7 @@ namespace WebAddressbookTests
         public ContactData GetContactInformationEditFrom(int index)
         {
             manager.Navigator.GoToHomePage();
-            InitContactModification(0);
+            InitContactModification(index);
             string firstName = driver.FindElement(By.Name("firstname")).GetAttribute("value");
             string lastName = driver.FindElement(By.Name("lastname")).GetAttribute("value");
             string address = driver.FindElement(By.Name("address")).GetAttribute("value");
@@ -196,13 +209,7 @@ namespace WebAddressbookTests
 
         }
 
-        public void InitContactModification(int index)
-        {
-            driver.FindElements(By.Name("entry"))[index]
-                .FindElements(By.TagName("td"))[7]
-                .FindElement(By.TagName("a")).Click();
-        }
-
+       
         public int GetNumberofSearchResults()
         {
             manager.Navigator.GoToHomePage();
@@ -231,6 +238,30 @@ namespace WebAddressbookTests
             driver.FindElements(By.Name("entry"))[index]
               .FindElements(By.TagName("td"))[6]
               .FindElement(By.TagName("a")).Click();
-        }        
+        }  
+        
+        public void AddContactToGroup (ContactData contact, GroupData group)
+        {
+            manager.Navigator.GoToHomePage();
+            ClearGroupFilter();
+            SelectContact(contact.Id);
+            SelectGroupToAdd(group.Name);
+            CommitAddingContactToGroup();
+        }
+
+        private void CommitAddingContactToGroup()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void SelectGroupToAdd(string name)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void ClearGroupFilter()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
