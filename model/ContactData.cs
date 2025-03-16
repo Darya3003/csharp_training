@@ -1,6 +1,9 @@
-﻿using LinqToDB.Mapping;
-using System;
+﻿using System;
+using System.Linq;
+using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using LinqToDB.Mapping;
+
 
 namespace WebAddressbookTests
 {
@@ -126,6 +129,14 @@ namespace WebAddressbookTests
         {
             if (other is null) return 1;
             return FirstLastName.CompareTo(other.FirstLastName);
+        }
+
+        public static List<ContactData> GetAll()
+        {
+            using (AddressBookDB db = new AddressBookDB())
+            {
+                return (from g in db.Contacts select g).ToList();
+            }
         }
     }
 }

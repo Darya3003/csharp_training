@@ -4,14 +4,14 @@ using System.Collections.Generic;
 namespace WebAddressbookTests
 {
     [TestFixture]
-    public class ContactModificationTests : AuthTestBase
+    public class ContactModificationTests : ContactTestBase
     {
         [Test]
         public void ContactModificationTest()
         {
-            ContactData newContactData = new ContactData("vvv")
+            ContactData newData = new ContactData("aaa")
             {
-                LastName = "nnn",
+                LastName = "bbb",
             };
 
             if (!app.Contact.IsAnyContactExist())
@@ -19,15 +19,15 @@ namespace WebAddressbookTests
                 app.Contact.Create(new ContactData("new contact"));
             }
 
-            List<ContactData> oldContacts = app.Contact.GetContactList();
+            List<ContactData> oldContacts = ContactData.GetAll();
             ContactData oldData = oldContacts[0];
 
-            app.Contact.Modify(0, newContactData);
+            app.Contact.Modify(oldData.Id, newData);
             Assert.AreEqual(oldContacts.Count, app.Contact.GetContactCount());
 
-            List<ContactData> newContacts = app.Contact.GetContactList();
-            oldContacts[0].FirstName = newContactData.FirstName;
-            
+            List<ContactData> newContacts = ContactData.GetAll();
+            oldData.FirstName = newData.FirstName;
+
             oldContacts.Sort();
             newContacts.Sort();
 
@@ -37,7 +37,7 @@ namespace WebAddressbookTests
             {
                 if (contact.Id == oldData.Id)
                 {
-                    Assert.AreEqual(newContactData.FirstName, contact.FirstName);
+                    Assert.AreEqual(newData.FirstName, contact.FirstName);
                 }
             }
         }

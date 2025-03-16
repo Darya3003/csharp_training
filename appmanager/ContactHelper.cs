@@ -1,6 +1,7 @@
 ﻿using OpenQA.Selenium;
 using System;
 using System.Collections.Generic;
+using System.Reflection;
 using System.Text.RegularExpressions;
 
 namespace WebAddressbookTests
@@ -26,9 +27,27 @@ namespace WebAddressbookTests
             return this;
         }
 
+        public ContactHelper Modify(string oldId, ContactData newContactData)
+        {
+            SelectContact(oldId);
+            InitContactModification();
+            FillContactForm(newContactData);
+            SubmitContactModification();
+            manager.Navigator.ReturnToHomePage();
+            return this;
+        }
+
         public ContactHelper Remove(int index)
         {
             SelectContact(index);
+            RemoveContact();
+            manager.Navigator.ReturnToHomePage();
+            return this;
+        }
+
+        public ContactHelper Remove(ContactData contact)
+        {
+            SelectContact(contact.Id);
             RemoveContact();
             manager.Navigator.ReturnToHomePage();
             return this;
@@ -72,7 +91,14 @@ namespace WebAddressbookTests
             return this;
         }
 
-        
+        public ContactHelper SelectContact(string id)
+        {
+            driver.FindElement(By.XPath("//input[@name='selected[]' and @value='" + id + "']")).Click();
+            contactCache = null;
+
+            return this;
+        }
+
         public bool IsAnyContactExist()
         {
             return IsElementPresent(By.Name("selected[]"));
@@ -205,6 +231,6 @@ namespace WebAddressbookTests
             driver.FindElements(By.Name("entry"))[index]
               .FindElements(By.TagName("td"))[6]
               .FindElement(By.TagName("a")).Click();
-        }
+        }        
     }
 }

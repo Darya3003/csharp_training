@@ -1,7 +1,6 @@
 ﻿using Newtonsoft.Json;
 using NUnit.Framework;
 using System.Collections.Generic;
-using System.Linq;
 using System.IO;
 using System.Xml.Serialization;
 using Excel = Microsoft.Office.Interop.Excel;
@@ -10,7 +9,7 @@ using System;
 namespace WebAddressbookTests
 {
     [TestFixture]
-   public class GroupCreationTests : AuthTestBase
+   public class GroupCreationTests : GroupTestBase
     {
         public static IEnumerable<GroupData> RandomGroupDataProvider()
         {
@@ -83,12 +82,12 @@ namespace WebAddressbookTests
         [Test, TestCaseSource("GroupDataFromExcelFile")]
         public void GroupCreationTest(GroupData group)
         {      
-            List<GroupData> oldGroups = app.Groups.GetGroupList();
-            
+            List<GroupData> oldGroups = GroupData.GetAll();
+
             app.Groups.Create(group);
             Assert.AreEqual(oldGroups.Count + 1, app.Groups.GetGroupCount());
 
-            List<GroupData> newGroups = app.Groups.GetGroupList();
+            List<GroupData> newGroups = GroupData.GetAll();
             oldGroups.Add(group);
             oldGroups.Sort();
             newGroups.Sort();   
