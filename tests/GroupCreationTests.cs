@@ -116,17 +116,12 @@ namespace WebAddressbookTests
         }
 
         [Test]
-        public void TestCBConnectivity()
+        public void TestDBConnectivity()
         {
-            DateTime start = DateTime.Now;
-            List<GroupData> fromUI = app.Groups.GetGroupList();
-            DateTime end = DateTime.Now;
-            Console.WriteLine("time fromUI " + end.Subtract(start));
-
-            start = DateTime.Now;
-            List<GroupData> fromDB = GroupData.GetAll();
-            end = DateTime.Now;
-            Console.WriteLine("time fromDB "+end.Subtract(start));
+            foreach (ContactData contact in GroupData.GetAll()[0].GetContacts())
+            {
+                Console.WriteLine("contacts in group" + contact);
+            }
         }
     }
 }
