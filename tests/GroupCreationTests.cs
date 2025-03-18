@@ -120,7 +120,7 @@ namespace WebAddressbookTests
         {
             foreach (ContactData contact in GroupData.GetAll()[0].GetContacts())
             {
-                Console.WriteLine("contacts in group" + contact);
+                Console.WriteLine(contact.Deprecated);
             }
         }
     }

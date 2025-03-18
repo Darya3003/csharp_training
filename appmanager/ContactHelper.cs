@@ -1,4 +1,5 @@
 ﻿using OpenQA.Selenium;
+using OpenQA.Selenium.Support.UI;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
@@ -93,8 +94,9 @@ namespace WebAddressbookTests
 
         public ContactHelper SelectContact(string id)
         {
-            driver.FindElement(By.XPath("//input[@name='selected[]' and @value='" + id + "']")).Click();
-            contactCache = null;
+            //driver.FindElement(By.XPath("//input[@name='selected[]' and @value='" + id + "']")).Click();
+            driver.FindElement(By.Id(id)).Click();
+            //contactCache = null;
 
             return this;
         }
@@ -247,21 +249,23 @@ namespace WebAddressbookTests
             SelectContact(contact.Id);
             SelectGroupToAdd(group.Name);
             CommitAddingContactToGroup();
+            new WebDriverWait(driver, TimeSpan.FromSeconds(10))
+                .Until(d => d.FindElements(By.CssSelector("div.msgbox")).Count > 0);
         }
 
         private void CommitAddingContactToGroup()
         {
-            throw new NotImplementedException();
+            driver.FindElement(By.Name("add")).Click();
         }
 
         private void SelectGroupToAdd(string name)
         {
-            throw new NotImplementedException();
+            new SelectElement(driver.FindElement(By.Name("to_group"))).SelectByText(name);
         }
 
         private void ClearGroupFilter()
         {
-            throw new NotImplementedException();
+            new SelectElement(driver.FindElement(By.Name("group"))).SelectByText("[all]");
         }
     }
 }

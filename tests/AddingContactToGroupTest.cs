@@ -11,9 +11,9 @@ namespace WebAddressbookTests
         {
             GroupData group = GroupData.GetAll()[0];
             List<ContactData> oldList = group.GetContacts();
-            ContactData contact = ContactData.GetAll().Except(group.GetContacts()).First();
+            ContactData contact = ContactData.GetAll().Except(oldList).First();
 
-            //app.Contacts.AddContactToGroup(contact, group);
+            app.Contact.AddContactToGroup(contact, group);
 
             List<ContactData> newList = group.GetContacts();
             oldList.Add(contact);
