@@ -94,10 +94,7 @@ namespace WebAddressbookTests
         [Test]
         public void EmptyContactCreationTest()
         {
-            ContactData contactData = new ContactData("")
-            {
-                LastName = ""
-            };
+            ContactData contactData = new ContactData("");            
 
             List<ContactData> oldContacts = app.Contact.GetContactList();
 

@@ -2,7 +2,6 @@
 using OpenQA.Selenium.Support.UI;
 using System;
 using System.Collections.Generic;
-using System.Reflection;
 using System.Text.RegularExpressions;
 
 namespace WebAddressbookTests
@@ -157,8 +156,7 @@ namespace WebAddressbookTests
                     var contact = new ContactData("");
                     IList<IWebElement> cells = row.FindElements(By.TagName("td")); ;
                     contact.FirstName = cells[2].Text;
-                    contact.LastName = cells[1].Text;
-                    contact.FirstLastName = cells[2].Text+cells[1].Text;
+                    contact.LastName = cells[1].Text;                   
                     contact.Id = cells[0].FindElement(By.TagName("input")).GetAttribute("id");
                     contactCache.Add(contact);
                 }
@@ -266,6 +264,31 @@ namespace WebAddressbookTests
         private void ClearGroupFilter()
         {
             new SelectElement(driver.FindElement(By.Name("group"))).SelectByText("[all]");
+        }
+
+        internal void DeleteAllContactsFromGroup(GroupData group)
+        {
+            manager.Navigator.GoToHomePage();
+            ClearGroupFilter();
+            SelectGroupWithContacts(group.Name);
+            SelectAllContactsinGroup(group.Id);
+            RemoveAllContactsInGroup(group.Id);
+        }
+
+        private void SelectGroupWithContacts(string name)
+        {
+            new SelectElement(driver.FindElement(By.Name("group"))).SelectByText(name);
+        }
+
+        private void SelectAllContactsinGroup(string id)
+        {
+            driver.FindElement(By.Id("MassCB")).Click();
+        }
+
+        private void RemoveAllContactsInGroup(string id)
+        {
+            //driver.FindElement(By.XPath("//div[@id='content']/hr[2]")).Click();
+            driver.FindElement(By.Name("remove")).Click();
         }
     }
 }

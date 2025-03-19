@@ -10,8 +10,8 @@ namespace WebAddressbookTests
     [Table(Name = "addressbook")]
     public class ContactData : IEquatable <ContactData>, IComparable<ContactData>
     {
-        private readonly string firstname;        
-        private readonly string lastname = "";
+        private string firstname;        
+        private string lastname = "";
         private string allPhones;
 
         public ContactData() { }
@@ -38,13 +38,33 @@ namespace WebAddressbookTests
         public string Id { get; set; }
 
         [Column(Name = "firstname"), NotNull]
-        public string FirstName { get; set; }
+        public string FirstName
+        {
+            get
+            {
+                return firstname;
+            }
+            set
+            {
+                firstname = value;
+            }
+        }
 
         [Column(Name = "middlename")]
         public string MiddleName { get; set; }
 
         [Column(Name = "lastname"), NotNull]
-        public string LastName { get; set; }
+        public string LastName
+        {
+            get
+            {
+                return lastname;
+            }
+            set
+            {
+                lastname = value;
+            }
+        }
 
         [Column(Name = "nickname")]
         public string NickName { get; set; }
@@ -84,12 +104,7 @@ namespace WebAddressbookTests
 
         public string FirstLastName
         {
-            get { return firstname+lastname; }
-            set
-            {
-                string firstLastName = firstname + lastname;
-                firstLastName = value; 
-            }
+            get { return FirstName + LastName; }            
         }
 
         public string AllPhones
