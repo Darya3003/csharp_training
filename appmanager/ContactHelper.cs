@@ -93,9 +93,7 @@ namespace WebAddressbookTests
 
         public ContactHelper SelectContact(string id)
         {
-            //driver.FindElement(By.XPath("//input[@name='selected[]' and @value='" + id + "']")).Click();
             driver.FindElement(By.Id(id)).Click();
-            //contactCache = null;
 
             return this;
         }
@@ -244,7 +242,7 @@ namespace WebAddressbookTests
         {
             manager.Navigator.GoToHomePage();
             ClearGroupFilter();
-            SelectContact(contact.Id);
+            SelectContactToAddinGroup(contact.Id);
             SelectGroupToAdd(group.Name);
             CommitAddingContactToGroup();
             new WebDriverWait(driver, TimeSpan.FromSeconds(10))
@@ -287,8 +285,18 @@ namespace WebAddressbookTests
 
         private void RemoveAllContactsInGroup(string id)
         {
-            //driver.FindElement(By.XPath("//div[@id='content']/hr[2]")).Click();
             driver.FindElement(By.Name("remove")).Click();
+        }
+
+        private void SelectContactToAddinGroup(string id)
+        {
+            new SelectElement(driver.FindElement(By.Name("group"))).SelectByText("[none]");
+            SelectContact(id);
+        }
+
+        private bool IsAnyContactsInGroup()
+        {
+            return IsElementPresent(By.Name("selected[]"));
         }
     }
 }

@@ -156,5 +156,21 @@ namespace WebAddressbookTests
                 return (from c in db.Contacts select c).ToList();
             }
         }
+
+        public static ContactData GetLastContact()
+        {
+            using (AddressBookDB db = new AddressBookDB())
+            {
+                return db.Contacts
+                 .OrderByDescending(c => c.Id)
+                 .Select(c => new ContactData
+                 {
+                     Id = c.Id,
+                     FirstName = c.FirstName,
+                     LastName = c.LastName
+                 })
+                 .First();
+            }
+        }
     }
 }

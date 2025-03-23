@@ -9,8 +9,24 @@ namespace WebAddressbookTests
         [Test]
         public void TestDeletingContactsFromGroup()
         {
+            if (!app.Contact.IsAnyContactExist())
+            {
+                app.Contact.Create(new ContactData("new contact"));
+            }
+            if (!app.Groups.IsAnyGroupExist())
+            {
+                app.Groups.Create(new GroupData("ggg"));
+            }
+
             GroupData group = GroupData.GetAll()[0];
-            List<ContactData> contactsToDelete= group.GetContacts();
+            ContactData contact = ContactData.GetLastContact();
+
+            List<ContactData> contactsToDelete = group.GetContacts();
+            if (contactsToDelete.Count == 0)
+            {
+                app.Contact.AddContactToGroup(contact, group);
+            }
+
             List<ContactData> oldList = ContactData.GetAll().Except(contactsToDelete).ToList();
 
             app.Contact.DeleteAllContactsFromGroup(group);
